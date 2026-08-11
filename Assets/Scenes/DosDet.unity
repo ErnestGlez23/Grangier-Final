@@ -272,9 +272,9 @@ MonoBehaviour:
   pantalla: {fileID: 1537029879}
   textoResultados: {fileID: 1861509822}
   nexp: 5
-  N: 2500
-  NQ: 250
-  NN: 200000
+  N: 100000
+  NQ: 10000
+  NN: 800000
   binsPorFrame: 20000
 --- !u!1 &114822509
 GameObject:
