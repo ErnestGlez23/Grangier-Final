@@ -2641,7 +2641,7 @@ PrefabInstance:
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[0]
-      value: "\xA1Hola! \xA1Qu\xE9 gusto verte! Bienvenido al simulador en realidad
+      value: "\xA1Hola! \xA1Qu\xE9 gusto verte! Bienvenido al laboratorio en realidad
         virtual del experimento de Grangier. \n\xA1Apunta al lado izquierdo de la
         caja de dialogo con tu joystick derecho y presiona el gatillo para saltar
         a la siguiente ventana!"
@@ -2656,8 +2656,9 @@ PrefabInstance:
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[2]
-      value: "Es decir, el cristal BBO no lineal que genera los pares de fotones,
-        el divisor de haz y los detectores de los fotones reflejado, se\xF1al y testigo."
+      value: "Es decir, ver\xE1s al cristal BBO no lineal que genera los pares de
+        fotones, el divisor de haz y los detectores de los fotones reflejado, se\xF1al
+        y testigo."
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
@@ -2682,9 +2683,9 @@ PrefabInstance:
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[6]
-      value: "Otra cosa importante en teor\xEDa que no debes dejar desapercibido
-        es que lo que buscamos es probar experimentalmente que la luz puede comportarse
-        como part\xEDcula, no solo como onda. "
+      value: "Otra cosa importante que no debes dejar desapercibida es que lo que
+        buscamos es probar experimentalmente que la luz puede comportarse como part\xEDcula,
+        no solo como onda. "
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
@@ -2734,7 +2735,7 @@ PrefabInstance:
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[14]
-      value: "2) \xBF Y con el fot\xF3n testigo (que revela la trayectoria del fot\xF3n
+      value: "2) \xBFY con el fot\xF3n testigo (que revela la trayectoria del fot\xF3n
         tras el divisor de haz) \xBFQu\xE9 comportamiento confirmas y por qu\xE9?"
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
@@ -2760,7 +2761,8 @@ PrefabInstance:
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[18]
-      value: "\xA1Mucha suerte!  \u304C\u3093\u3070\u308C"
+      value: "\xA8Space\xA8 activar\xE1 en simultaneo el experimento y las mediciones
+        \xA1Mucha suerte!  \u304C\u3093\u3070\u308C"
       objectReference: {fileID: 0}
     - target: {fileID: 4766548093815645374, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
