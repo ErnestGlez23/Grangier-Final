@@ -2620,6 +2620,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
+      propertyPath: normalSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
+        type: 3}
       propertyPath: botonAvanzar
       value: 
       objectReference: {fileID: 1400270015}
@@ -2637,8 +2642,9 @@ PrefabInstance:
         type: 3}
       propertyPath: dialogues.Array.data[0]
       value: "\xA1Hola! \xA1Qu\xE9 gusto verte! Bienvenido al simulador en realidad
-        virtual del experimento de Grangier. \n\xA1Apunta a la caja de dialogo con
-        tu joystick derecho y presiona el gatillo para saltar a la siguiente ventana!"
+        virtual del experimento de Grangier. \n\xA1Apunta al lado izquierdo de la
+        caja de dialogo con tu joystick derecho y presiona el gatillo para saltar
+        a la siguiente ventana!"
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
@@ -2650,28 +2656,28 @@ PrefabInstance:
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[2]
-      value: " el cristal BBO no lineal que genera los pares de fotones, el divisor
-        de haz y los detectores de los fotones reflejado, se\xF1al y testigo."
+      value: "Es decir, el cristal BBO no lineal que genera los pares de fotones,
+        el divisor de haz y los detectores de los fotones reflejado, se\xF1al y testigo."
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[3]
       value: "Podr\xE1s visualizar las funciones de correlaci\xF3n de segundo orden
-        , g\u207D\xB2\u207E\u2082D y g\u207D\xB2\u207E\u2083D  que te permitir\xE1n
-        distinguir si la luz se comporta como onda o como part\xEDcula."
+        , g\u207D\xB2\u207E2D y g\u207D\xB2\u207E3D  que te permitir\xE1n distinguir
+        si la luz se comporta como onda o como part\xEDcula."
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[4]
       value: "Recuerda que diremos que una series es: Correlacionada: para cualquier
-        evento en el tiempo t, existe otro evento en un tiempo menor a t+ \u03C4\u2080
+        evento en el tiempo t, existe otro evento en un tiempo menor a t+ \u03C40
         (hay predictibilidad si se detecta un fot\xF3n, existe otro asociado a \xE9l)."
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[5]
       value: "Mientras que una Serie anticorrelacionada: si ocurre un evento en t,
-        no existe ning\xFAn otro dentro del intervalo t+ \u03C4\u2080."
+        no existe ning\xFAn otro dentro del intervalo t+ \u03C40."
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
@@ -2691,7 +2697,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dialogues.Array.data[8]
       value: "...divididos en haz se\xF1al (va al divisor de haz 50:50, con detectores
-        D\u209C y D\u1D63) y haz testigo (va directo a su propio detector)."
+        Dt y Dr) y haz testigo (va directo a su propio detector)."
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
@@ -2703,8 +2709,8 @@ PrefabInstance:
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[10]
-      value: "Observa que en la anticorrelaci\xF3n, el fot\xF3n llega a D\u209C o
-        a D\u1D63, nunca a ambos y firma el comportamiento de part\xEDcula."
+      value: "Observa que en la anticorrelaci\xF3n, el fot\xF3n llega a Dt o a Dr,
+        nunca a ambos y firma el comportamiento de part\xEDcula."
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
@@ -2742,20 +2748,19 @@ PrefabInstance:
         type: 3}
       propertyPath: dialogues.Array.data[16]
       value: "4) Analiza los datos y los resultados de la simulaci\xF3n seg\xFAn
-        las indicaciones de t\xFA profesor (deber\xE1s graficar los datos o hacer
-        histogramas de ser necesario): "
+        las indicaciones de tu profesor (deber\xE1s graficar los datos o hacer histogramas
+        de ser necesario): "
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[17]
-      value: "Finalmente, para  activar el l\xE1ser y por ende comenzar el experimento,
-        debes presionar la tecla \xA8space\xA8 en tu computadora."
+      value: "Finalmente, para  activar el l\xE1ser, empezar a medir y por ende correr
+        el experimento, debes presionar la tecla \xA8space\xA8 en tu computadora."
       objectReference: {fileID: 0}
     - target: {fileID: 4083818003664544882, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}
       propertyPath: dialogues.Array.data[18]
-      value: " Y muy importante con el gatillo de de tu mango de tu joystick derecho
-        deber\xE1s tocar el boton que est\xE1 junto a la mesa. "
+      value: "\xA1Mucha suerte!  \u304C\u3093\u3070\u308C"
       objectReference: {fileID: 0}
     - target: {fileID: 4766548093815645374, guid: 02b5b195a1b1656449d55689f845e30f,
         type: 3}

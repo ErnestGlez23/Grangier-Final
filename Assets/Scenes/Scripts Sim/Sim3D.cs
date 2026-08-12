@@ -58,7 +58,7 @@ public class Sim3D : MonoBehaviour
     private IEnumerator EjecutarSimulacion()
     {
         if (textoResultados != null)
-            textoResultados.text = "Calculando...";
+            textoResultados.text = "Midiendo...";
 
         double g2Promedio = 0.0;
         double g3Promedio = 0.0;
