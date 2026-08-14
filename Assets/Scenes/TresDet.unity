@@ -553,9 +553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8bbf3a6e084bb14890b157ef0e3df8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detTest: {fileID: 0}
-  "detSe\xF1al": {fileID: 0}
-  detRefle: {fileID: 0}
 --- !u!4 &343714378
 Transform:
   m_ObjectHideFlags: 0
@@ -843,7 +840,7 @@ PrefabInstance:
     - target: {fileID: 2748735630693262208, guid: e9a1ac93ee35b2b4883bf3be113df6f5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.9372
+      value: 1.941
       objectReference: {fileID: 0}
     - target: {fileID: 2748735630693262208, guid: e9a1ac93ee35b2b4883bf3be113df6f5,
         type: 3}
@@ -1641,11 +1638,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pantalla: {fileID: 7183580362953541818}
   textoResultados: {fileID: 7183580362953541817}
-  nexp: 5
+  nexp: 10
   N: 100000
   NQ: 10000
   NN: 7000000
-  binsPorFrame: 20000
+  binsPorFrame: 50000
 --- !u!1 &1811459917
 GameObject:
   m_ObjectHideFlags: 0

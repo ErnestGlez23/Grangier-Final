@@ -1,8 +1,19 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+// Caso de 3 detectores: transmitido, reflejado y testigo (heraldo). El testigo
+// además funciona como la señal real: cuando dispara, el divisor de haz lo manda
+// a transmitido O a reflejado (nunca a los dos), que es justo el comportamiento
+// de un fotón único. Con eso se calculan g2 (sin condicionar a nada) y g3
+// (condicionado a que el testigo haya disparado). g2 sale cerca de 1; g3 sale
+// muy por debajo de 1, y esa caída es la firma de que el fotón nunca llegó a
+// los dos detectores a la vez.
+//
+// Portado del programa de Víctor en fortran (8,000,000 bins x 10 experimentos
+// originalmente, pensado para correr una sola vez en batch). Acá se bajó la
+// escala para que corra al presionar space sin trabar la app, manteniendo las
+// mismas probabilidades N/NN y NQ/NN del original.
 public class Sim3D : MonoBehaviour
 {
     [Header("Interfaz")]
@@ -10,26 +21,24 @@ public class Sim3D : MonoBehaviour
     [SerializeField] private TMP_Text textoResultados;
 
     [Header("Parámetros de la simulación")]
-    [SerializeField] private int nexp = 5;
-    [SerializeField] private int N = 2500;
-    [SerializeField] private int NQ = 250;
-    [SerializeField] private int NN = 200000;
+    [SerializeField] private int nexp = 5;     // experimentos que se promedian cada vez que se enciende
+    [SerializeField] private int N = 10000;    // tasa esperada en transmitido/reflejado
+    [SerializeField] private int NQ = 1000;    // tasa esperada del testigo (bastante menor que N)
+    [SerializeField] private int NN = 800000;  // bins de tiempo; probabilidad real de clic por bin es N/NN y NQ/NN
 
     [Header("Rendimiento")]
-    [SerializeField] private int binsPorFrame = 20000;
+    [SerializeField] private int binsPorFrame = 50000; // bins procesados antes de ceder un frame
 
     private bool mostrandoResultados = false;
     private Coroutine simulacionActual;
 
     void Start()
     {
-        if (pantalla != null)
-            pantalla.SetActive(false);
+        if (pantalla != null) pantalla.SetActive(false);
     }
 
     void Update()
     {
-        // La simulación se activa una sola vez por pulsación.
         if (Input.GetKeyDown(KeyCode.Space))
         {
             mostrandoResultados = !mostrandoResultados;
@@ -40,149 +49,75 @@ public class Sim3D : MonoBehaviour
                 simulacionActual = null;
             }
 
-            if (pantalla != null)
-                pantalla.SetActive(mostrandoResultados);
+            if (pantalla != null) pantalla.SetActive(mostrandoResultados);
 
             if (mostrandoResultados)
-            {
                 simulacionActual = StartCoroutine(EjecutarSimulacion());
-            }
-            else
-            {
-                if (textoResultados != null)
-                    textoResultados.text = "";
-            }
+            else if (textoResultados != null)
+                textoResultados.text = "";
         }
     }
 
     private IEnumerator EjecutarSimulacion()
     {
-        if (textoResultados != null)
-            textoResultados.text = "Midiendo...";
+        if (textoResultados != null) textoResultados.text = "Midiendo...";
 
-        double g2Promedio = 0.0;
-        double g3Promedio = 0.0;
-
-        double[] g2 = new double[nexp];
-        double[] g3 = new double[nexp];
+        float g2Promedio = 0f, g3Promedio = 0f;
+        float[] g2 = new float[nexp];
+        float[] g3 = new float[nexp];
 
         for (int j = 0; j < nexp; j++)
         {
-            // Variaciones aleatorias del programa de Víctor.
-            int NR = Random.Range(0, 200);
-            int NQR = Random.Range(0, 200);
+            int NR = Random.Range(0, Mathf.Max(1, N / 500));
+            int NQR = Random.Range(0, Mathf.Max(1, NQ / 500));
+            float ff = (float)(N + NR) / NN;
+            float ffQ = (float)(NQ + NQR) / NN;
 
-            double ff = (double)(N + NR) / NN;
-            double ffQ = (double)(NQ + NQR) / NN;
-
-            long unosi = 0;
-            long unost = 0;
-            long unosr = 0;
-
-            long nc = 0;
-            long nc123 = 0;
-            long nc13 = 0;
-            long nc23 = 0;
+            int unost = 0, unosr = 0, unosi = 0;
+            int nc = 0, nc123 = 0, nc13 = 0, nc23 = 0;
 
             for (int i = 0; i < NN; i++)
             {
-                // Series transmitida y reflejada.
                 bool transmitido = Random.value <= ff;
                 bool reflejado = Random.value <= ff;
-
-                // Serie de la señal testigo.
                 bool testigo = Random.value <= ffQ;
 
+                // el divisor de haz solo se tira cuando de verdad hay un fotón
+                // testigo que repartir; así no se desperdicia esa tirada en
+                // el resto de los bins (la gran mayoría, porque ffQ es chico)
                 if (testigo)
-                    unosi++;
-
-                // División de la señal testigo.
-                // El fotón va a transmitido O a reflejado.
-                bool sit = false;
-                bool sir = false;
-
-                if (Random.value >= 0.5f)
                 {
-                    sit = testigo;
-                }
-                else
-                {
-                    sir = testigo;
+                    if (Random.value >= 0.5f) transmitido = true;
+                    else reflejado = true;
                 }
 
-                // Suma de las series.
-                bool st = transmitido || sit;
-                bool sr = reflejado || sir;
+                if (transmitido) unost++;
+                if (reflejado) unosr++;
+                if (testigo) unosi++;
+                if (transmitido && reflejado) nc++;
+                if (testigo && transmitido && reflejado) nc123++;
+                if (testigo && transmitido) nc13++;
+                if (testigo && reflejado) nc23++;
 
-                if (st)
-                    unost++;
-
-                if (sr)
-                    unosr++;
-
-                // Coincidencia entre transmitido y reflejado.
-                if (st && sr)
-                    nc++;
-
-                // Coincidencia de los tres detectores.
-                if (testigo && st && sr)
-                    nc123++;
-
-                // Coincidencias de dos detectores.
-                if (st && testigo)
-                    nc13++;
-
-                if (sr && testigo)
-                    nc23++;
-
-                if (i % binsPorFrame == 0)
-                    yield return null;
+                if (i % binsPorFrame == 0) yield return null;
             }
 
-            // Cálculo de g2.
-            if (unost > 0 && unosr > 0)
-            {
-                g2[j] =
-                    ((double)nc / ((double)unost * unosr)) * NN;
-            }
-            else
-            {
-                g2[j] = 0.0;
-            }
-
-            // Cálculo de g3 según el Fortran original.
-            if (nc13 > 0 && nc23 > 0)
-            {
-                g3[j] =
-                    ((double)nc123 /
-                    ((double)nc13 * nc23)) * unosi;
-            }
-            else
-            {
-                g3[j] = 0.0;
-            }
+            g2[j] = (unost > 0 && unosr > 0) ? (nc / (unost * (float)unosr)) * NN : 0f;
+            g3[j] = (nc13 > 0 && nc23 > 0) ? (nc123 * (float)unosi) / (nc13 * (float)nc23) : 0f;
 
             g2Promedio += g2[j] / nexp;
             g3Promedio += g3[j] / nexp;
         }
 
-        // Desviación estándar de g2 y g3.
-        double v2 = 0.0;
-        double v3 = 0.0;
-
+        // desviación de los promedios, igual que sigma2/sigma3 en el .f
+        float v2 = 0f, v3 = 0f;
         for (int k = 0; k < nexp; k++)
         {
-            v2 +=
-                System.Math.Pow(g2Promedio - g2[k], 2.0)
-                / ((double)nexp * nexp);
-
-            v3 +=
-                System.Math.Pow(g3Promedio - g3[k], 2.0)
-                / ((double)nexp * nexp);
+            v2 += Mathf.Pow(g2Promedio - g2[k], 2f) / (nexp * (float)nexp);
+            v3 += Mathf.Pow(g3Promedio - g3[k], 2f) / (nexp * (float)nexp);
         }
-
-        double sigma2 = System.Math.Sqrt(v2);
-        double sigma3 = System.Math.Sqrt(v3);
+        float sigma2 = Mathf.Sqrt(v2);
+        float sigma3 = Mathf.Sqrt(v3);
 
         if (textoResultados != null)
         {
